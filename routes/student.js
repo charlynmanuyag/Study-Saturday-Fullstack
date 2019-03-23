@@ -40,4 +40,13 @@ router.delete('/:id', function(req, res, next) {
     .catch(next);
 });
 
+router.post('/', async function(req, res, next) {
+  try {
+    const newStudent = await Student.create(req.body);
+    res.json(newStudent);
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
