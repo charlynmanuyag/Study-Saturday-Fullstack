@@ -35449,6 +35449,11 @@ var Main = function (_Component) {
         'div',
         null,
         _react2.default.createElement(
+          'button',
+          null,
+          'Add New Student'
+        ),
+        _react2.default.createElement(
           'h1',
           null,
           'Students'

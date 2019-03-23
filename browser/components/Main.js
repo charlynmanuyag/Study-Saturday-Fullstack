@@ -38,6 +38,7 @@ export default class Main extends Component {
   render() {
     return (
       <div>
+        <button>Add New Student</button>
         <h1>Students</h1>
         <table>
           <thead>

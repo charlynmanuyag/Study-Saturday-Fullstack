@@ -43,6 +43,11 @@ router.delete('/:id', function(req, res, next) {
 router.post('/', async function(req, res, next) {
   try {
     const newStudent = await Student.create(req.body);
+    await Test.create({
+      subject: 'Physics',
+      grade: '90',
+      studentId: newStudent.id,
+    });
     res.json(newStudent);
   } catch (error) {
     next(error);
