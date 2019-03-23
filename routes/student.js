@@ -45,10 +45,14 @@ router.post('/', async function(req, res, next) {
     const newStudent = await Student.create(req.body);
     await Test.create({
       subject: 'Physics',
-      grade: '90',
+      grade: 90,
       studentId: newStudent.id,
     });
-    res.json(newStudent);
+    const newStudentTests = await Student.findByPk(newStudent.id, {
+      include: [{ model: Test }],
+    });
+
+    res.json(newStudentTests);
   } catch (error) {
     next(error);
   }
