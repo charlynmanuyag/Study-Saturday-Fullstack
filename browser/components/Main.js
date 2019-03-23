@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-
+import NewStudentForm from './NewStudentForm';
 import StudentList from './StudentList.js';
 import SingleStudent from './SingleStudent.js';
 
@@ -10,9 +10,11 @@ export default class Main extends Component {
     this.state = {
       students: [],
       selectedStudent: {},
+      isToggleOn: false,
     };
 
     this.selectStudent = this.selectStudent.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -35,10 +37,13 @@ export default class Main extends Component {
     });
   }
 
+  handleClick() {
+    this.setState({ isToggleOn: !this.state.isToggleOn });
+  }
+
   render() {
     return (
       <div>
-        <button>Add New Student</button>
         <h1>Students</h1>
         <table>
           <thead>
@@ -55,6 +60,10 @@ export default class Main extends Component {
         {this.state.selectedStudent.id ? (
           <SingleStudent student={this.state.selectedStudent} />
         ) : null}
+        <div className="newStudent">
+          <button onClick={this.handleClick}>Add New Student</button>
+          {this.state.isToggleOn && <NewStudentForm />}
+        </div>
       </div>
     );
   }
