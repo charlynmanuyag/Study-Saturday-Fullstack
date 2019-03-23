@@ -15,6 +15,7 @@ export default class Main extends Component {
 
     this.selectStudent = this.selectStudent.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.addStudent = this.addStudent.bind(this);
   }
 
   componentDidMount() {
@@ -41,6 +42,15 @@ export default class Main extends Component {
     this.setState({ isToggleOn: !this.state.isToggleOn });
   }
 
+  async addStudent(newStudent) {
+    try {
+      const { data } = await axios.post('/student', newStudent);
+      this.setState({ students: [...this.state.students, data] });
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   render() {
     return (
       <div>
@@ -62,7 +72,9 @@ export default class Main extends Component {
         ) : null}
         <div className="newStudent">
           <button onClick={this.handleClick}>Add New Student</button>
-          {this.state.isToggleOn && <NewStudentForm />}
+          {this.state.isToggleOn && (
+            <NewStudentForm addStudent={this.addStudent} />
+          )}
         </div>
       </div>
     );
